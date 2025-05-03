@@ -4,15 +4,11 @@
 package com.lynx.explorer;
 
 import android.app.Application;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.facebook.imagepipeline.memory.PoolConfig;
-import com.facebook.imagepipeline.memory.PoolFactory;
 import com.lynx.explorer.modules.LynxModuleAdapter;
 import com.lynx.explorer.provider.DemoTemplateProvider;
+import com.lynx.explorer.service.image.CoilImageService;
 import com.lynx.service.devtool.LynxDevToolService;
 import com.lynx.service.http.LynxHttpService;
-import com.lynx.service.image.LynxImageService;
 import com.lynx.service.log.LynxLogService;
 import com.lynx.tasm.LynxEnv;
 import com.lynx.tasm.service.ILynxHttpService;
@@ -27,7 +23,6 @@ public class ExplorerApplication extends Application {
     initLynxService();
     initLynxEnv();
     installLynxJSModule(); // register native module.
-    initFresco();
   }
 
   private void initLynxEnv() {
@@ -36,7 +31,7 @@ public class ExplorerApplication extends Application {
 
   private void initLynxService() {
     LynxServiceCenter.inst().registerService(
-        ILynxImageService.class, LynxImageService.getInstance());
+        ILynxImageService.class, CoilImageService.getInstance());
     LynxServiceCenter.inst().registerService(ILynxLogService.class, LynxLogService.INSTANCE);
     LynxServiceCenter.inst().registerService(ILynxHttpService.class, LynxHttpService.INSTANCE);
   }
@@ -44,12 +39,5 @@ public class ExplorerApplication extends Application {
   // merge it into InitProcessor later.
   private void installLynxJSModule() {
     LynxModuleAdapter.getInstance().Init(this);
-  }
-
-  private void initFresco() {
-    final PoolFactory factory = new PoolFactory(PoolConfig.newBuilder().build());
-    ImagePipelineConfig.Builder builder =
-        ImagePipelineConfig.newBuilder(getApplicationContext()).setPoolFactory(factory);
-    Fresco.initialize(getApplicationContext(), builder.build());
   }
 }
