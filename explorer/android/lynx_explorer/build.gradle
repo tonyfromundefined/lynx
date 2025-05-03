@@ -75,11 +75,10 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.core:core:1.6.0'
-    implementation 'com.facebook.fresco:fresco:2.3.0'
-    implementation 'com.facebook.fresco:animated-gif:2.3.0'
-    implementation 'com.facebook.fresco:animated-webp:2.3.0'
-    implementation 'com.facebook.fresco:webpsupport:2.3.0'
-    implementation 'com.facebook.fresco:animated-base:2.3.0'
+    // Coil 이미지 로딩 라이브러리
+    implementation 'io.coil-kt:coil:2.4.0'
+    implementation 'io.coil-kt:coil-gif:2.4.0'
+    implementation 'io.coil-kt:coil-svg:2.4.0'
 
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
     implementation "com.squareup.okhttp3:okhttp:4.9.0"
